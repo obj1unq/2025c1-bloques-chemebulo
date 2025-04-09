@@ -1,19 +1,38 @@
 import bloques.*
 
 describe "pepita volar" {
-
-  test "pepita has initial energy" {
-    pepita.volar(10)
-    assert.equals(80, pepita.energia())
-    assert.throwsException({pepita.volar(1000)})
+  test "Primera rutina" {
+    roque.ave(pepita)
+    
+    roque.rutina({ ave =>  ave.comer(alpiste)return ave.volar(5)})
+    
+    roque.entrenar()
+    assert.equals(105, pepita.energia())
   }
-
-  test "mi asserter" {
-    //Espero que mi asserter diga que está mal que pepita.volar(10) lanza error (ya que no lo lanza)
-    assert.notThat( miAsserter.assertException( { pepita.volar(10) } ))
-    assert.equals(80, pepita.energia())
-    //Espero que mi asserter diga que está bien que pepita.volar(100) lanza error
-    assert.that( miAsserter.assertException( { pepita.volar(1000) } ))
+  
+  test "Segunda rutina" {
+    roque.ave(pepita)
+    
+    roque.rutina({ ave =>  ave.volar(5)ave.comer(alpiste)return ave.volar(5)})
+    
+    roque.entrenar()
+    assert.equals(90, pepita.energia())
+    // No es necesario roque.ave().energia() porque en este caso se que ave tiene roque, la defini al principio del test.
   }
-
+  
+  test "Tercera rutina" {
+    roque.ave(pepita)
+    
+    roque.rutina(
+      { ave =>
+        ave.comer(alpiste)
+        ave.volar(1000)
+        return ave.comer(alpiste)
+      }
+    )
+    
+    miAsserter.assertException({ roque.entrenar() })
+    // Esto es así porque estoy esperando que roque.entrenar() rompa.
+    assert.equals(120, pepita.energia())
+  }
 }
