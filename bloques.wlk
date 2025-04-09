@@ -29,9 +29,7 @@ object alpiste {
 }
 
 object miAsserter {
-
     method assertException(bloque) {
-
       try {
         bloque.apply() //ejecuto el bloque
         return false //no anda como espero
@@ -39,7 +37,31 @@ object miAsserter {
       catch e: Exception {
         return true //anda como espero
       } 
-      
     }
+}
 
+object roque {
+	var ave = pepita
+	var cenas = 0
+  var rutina = {}
+	
+	method ave(_ave) {
+		ave = _ave
+		cenas = 0
+	}
+
+  method rutina(_rutina) {
+    rutina = _rutina
+  }
+
+  method entrenar() {
+    rutina.apply(ave)
+  }
+	
+	method alimentar(alimento) {
+		ave.comer(alimento)
+		cenas += 1
+	}
+	
+	method cenas() = cenas
 }
